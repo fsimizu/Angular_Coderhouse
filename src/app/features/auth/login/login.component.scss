@@ -1,0 +1,24 @@
+.login_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    // background-color: azure;
+}
+
+mat-card {
+    max-width: 400px
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+mat-card-header {
+    margin-bottom: 10px;
+}
+
+button {
+    width: 100%;
+}

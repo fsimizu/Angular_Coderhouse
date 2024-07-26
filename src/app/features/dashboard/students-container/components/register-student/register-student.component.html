@@ -1,0 +1,88 @@
+<h2 mat-dialog-title>
+    {{ editingStudent ? "Editing user ID: " + editingStudent.id : "New student" }}
+  </h2>
+  
+  <mat-dialog-content>
+
+    <form [formGroup]="studentForm">
+
+      <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input formControlName="firstName" matInput />
+
+        
+        @if (firstNameControl?.hasError('required') &&
+        firstNameControl?.touched) {
+        <mat-error>Required field</mat-error>
+        }
+        @if (firstNameControl?.hasError('minlength') &&
+        firstNameControl?.touched) {
+        <mat-error>Name is too short</mat-error>
+        } 
+
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input formControlName="lastName" matInput />
+        @if (firstNameControl?.hasError('required') &&
+        firstNameControl?.touched) {
+        <mat-error>Required field</mat-error>
+        }
+        @if (firstNameControl?.hasError('minlength') &&
+        firstNameControl?.touched) {
+        <mat-error>Name is too short</mat-error>
+        } 
+
+
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="male">Male</mat-option>
+          <mat-option value="female">Female</mat-option>
+          <mat-option value="other">Other</mat-option>
+        </mat-select>
+        <mat-error>Required field</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="nationality">
+          <mat-option value="Argentina">Argentina</mat-option>
+          <mat-option value="Bolivia">Bolivia</mat-option>
+          <mat-option value="Chile">Chile</mat-option>
+          <mat-option value="Colombia">Colombia</mat-option>
+          <mat-option value="Ecuador">Ecuador</mat-option>
+          <mat-option value="Mexico">Mexico</mat-option>
+          <mat-option value="Paraguay">Paraguay</mat-option>
+          <mat-option value="Peru">Peru</mat-option>
+          <mat-option value="Uruguay">Uruguay</mat-option>
+          <mat-option value="Venezuela">Venezuela</mat-option>
+          <mat-option value="Other">Other</mat-option>
+        </mat-select>
+        <mat-error>Required field</mat-error>
+        <!-- <mat-hint align="end">Here's the dropdown arrow ^</mat-hint> -->
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Date of birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>Required field</mat-error>
+      </mat-form-field>
+
+
+
+    </form>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions>
+    <button mat-dialog-close mat-button>Cancelar</button>
+    <button (click)="onSubmit()" mat-button>Guardar</button>
+    <!-- Hacer el boton disabled si hay algun error en el formaulario -->
+  </mat-dialog-actions>
+  

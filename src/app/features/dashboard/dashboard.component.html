@@ -1,0 +1,9 @@
+<mat-drawer-container class="example-container" autosize>
+    <app-toolbar (toggleSidebar)="clickMenu()"/>
+    <div class="example-sidenav-content">
+        <main class="p-5">
+            <router-outlet/>
+            <app-sidebar [openMenu]="openMenu"/>
+        </main>
+    </div>
+</mat-drawer-container>

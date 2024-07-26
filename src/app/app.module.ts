@@ -4,8 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardModule } from './modules/dashboard/dashboard.module';
-import { AuthModule } from './modules/auth/auth.module';
+import { DashboardModule } from './features/dashboard/dashboard.module';
+import { AuthModule } from './features/auth/auth.module';
 
 @NgModule({
   declarations: [
