@@ -1,4 +1,10 @@
-<mat-drawer [opened]="openMenu" class="sidenav" mode="side">
+<mat-drawer 
+    [opened]="openMenu" 
+    class="sidenav" 
+    mode="side"
+    appClickOutside 
+    (clickOutside)="closeOnClick()"
+    >
     <mat-nav-list>
         <a 
             mat-list-item 
@@ -24,7 +30,12 @@
             [activated] = "studentsLink.isActive"
             (click)="closeOnClick()"
             >Students</a>
-        <a mat-list-item>Enrollments</a>
-        <a mat-list-item routerLink="/">Logout</a>
+        <!-- <a 
+            *ngIf="(authUser$ | async)?.role === 'Admin'"
+            mat-list-item
+            >Enrollments</a> -->
+
+        <a mat-list-item (click)="logout()">Logout</a>
+
     </mat-nav-list>
 </mat-drawer>

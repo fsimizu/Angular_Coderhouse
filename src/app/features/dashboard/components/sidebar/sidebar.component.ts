@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { AuthService } from '../../../../core/services/auth.service';
+import { Observable } from 'rxjs';
+import { User } from '../../../../shared/models/users';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,6 +13,16 @@ export class SidebarComponent {
 
   closeOnClick() {
     this.openMenu = false
+  }
+  
+  authUser$: Observable<User | null>;
+
+  constructor(private authService: AuthService) {
+    this.authUser$ = this.authService.authUser$;
+  }
+
+  logout() {
+    this.authService.logout()
   }
 
 }

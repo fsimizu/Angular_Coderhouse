@@ -1,24 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { User } from '../../../models/users';
+import { Student } from '../../../shared/models/student.model';
 import { RegisterStudentComponent } from './components/register-student/register-student.component';
 import { DeleteStudentComponent } from './components/delete-student/delete-student.component';
 import { StudentsService } from '../../../core/services/students.service';
-
-
-function generateId(length: number) {
-  let result = '';
-  const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-}
-
+import { generateId } from '../../../shared/utils';
 
 @Component({
   selector: 'app-students-container',
@@ -28,7 +14,7 @@ function generateId(length: number) {
 export class StudentsContainerComponent implements OnInit {
   displayedColumns: string[] = ['id', 'fullName', 'nationality', 'actions'];
 
-  students: User[] = []
+  students: Student[] = []
   isLoading = false
 
   constructor(
@@ -46,7 +32,10 @@ export class StudentsContainerComponent implements OnInit {
       next: (students) => {
         this.students = students
       },
-      error: () => {}, //Aca habria que mostrar  algun error
+      error: () => {
+        this.isLoading = false
+        console.log("error loading the students")
+      },
       complete: () => {
         this.isLoading = false;
       }
@@ -59,7 +48,7 @@ export class StudentsContainerComponent implements OnInit {
       .afterClosed()
       .subscribe({
         next: (value) => {
-          value['id'] = generateId(5);
+          value['id'] = generateId(5)
           this.isLoading = true;
           this.studentsService.addStudent(value).subscribe({
             next: (students) => {
@@ -73,7 +62,7 @@ export class StudentsContainerComponent implements OnInit {
       });
   }
 
-  editStudent(editingStudent: User) {
+  editStudent(editingStudent: Student) {
     this.matDialog
       .open(RegisterStudentComponent, { data: editingStudent })
       .afterClosed()
@@ -84,6 +73,10 @@ export class StudentsContainerComponent implements OnInit {
             this.studentsService.editStudent(editingStudent.id, value).subscribe({
               next: (students) => {
                 this.students = [...students];
+              },
+              error: () => {
+                this.isLoading = false
+                console.log("error editing the students")
               },
               complete: () => {
                 this.isLoading = false
@@ -106,6 +99,10 @@ export class StudentsContainerComponent implements OnInit {
               next: (students) => {
                 this.students = [...students];
               },
+              error: () => {
+                this.isLoading = false
+                console.log("error deleting the student")
+              },
               complete: () => {
                 this.isLoading = false
               }
@@ -113,7 +110,6 @@ export class StudentsContainerComponent implements OnInit {
           }
         },
       });
-
   }
 
 }

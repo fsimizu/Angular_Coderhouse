@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, map, Observable, of } from 'rxjs';
-import { Student } from '../../models/student.model';
+import { Student } from '../../shared/models/student.model';
 
 @Injectable({
     providedIn: 'root'
@@ -36,12 +36,6 @@ export class StudentsService {
     ];
 
     getStudents(): Observable<Student[]> {
-        // return new Observable((observer) => {
-        //     setTimeout(() => {
-        //         observer.next(this.STUDENTS_DB);
-        //         observer.complete();
-        //     }, 2000)
-        // })
         return of(this.STUDENTS_DB).pipe(delay(2000))
     };
 

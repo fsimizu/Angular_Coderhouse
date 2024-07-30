@@ -10,13 +10,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class DeleteStudentComponent {
   constructor(
     private matDialogRef: MatDialogRef<DeleteStudentComponent>,
-  ) {
-  }
+  ) {}
 
   onSubmit(answer: boolean): void {
     this.matDialogRef.close(answer);
-    // console.log(answer);
-      
   }
 
 

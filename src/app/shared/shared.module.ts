@@ -18,13 +18,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { DashboardRoutingModule } from '../features/dashboard/dashboard-routing.module';
 import { HeadersDirective } from './directives/headers.directive';
 import { FullNamePipe } from './pipes/full-name.pipe';
-
-
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 @NgModule({
   declarations: [
     FullNamePipe,
-    HeadersDirective
+    HeadersDirective,
+    ClickOutsideDirective
   ],
   exports: [
     FullNamePipe,
@@ -46,10 +46,10 @@ import { FullNamePipe } from './pipes/full-name.pipe';
     DashboardRoutingModule,
     MatProgressBarModule,
     MatCardModule,
-
+    ClickOutsideDirective
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ]
 })
 export class SharedModule { }

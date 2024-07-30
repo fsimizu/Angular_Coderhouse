@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { EnrollementsService } from '../../../core/services/enrollments.service';
 import { finalize, Observable } from 'rxjs';
-import { Enrollment } from '../../../models/enrollment.model';
+import { Enrollment } from '../../../shared/models/enrollment.model';
 
 
 @Component({

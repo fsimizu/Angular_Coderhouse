@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
-import { Enrollment } from '../../models/enrollment.model';
+import { Enrollment } from '../../shared/models/enrollment.model';
 
 @Injectable({
     providedIn: 'root'

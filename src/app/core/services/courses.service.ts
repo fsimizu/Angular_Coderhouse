@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { delay, map, Observable, of } from 'rxjs';
-import { Course } from '../../models/course.model';
+import { Course } from '../../shared/models/course.model';
 
 @Injectable({
     providedIn: 'root'

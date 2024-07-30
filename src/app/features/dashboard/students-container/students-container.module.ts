@@ -5,6 +5,7 @@ import { DeleteStudentComponent } from './components/delete-student/delete-stude
 import { RegisterStudentComponent } from './components/register-student/register-student.component';
 import { StudentDetailsComponent } from './pages/student-details/student-details.component';
 import { StudentsContainerComponent } from './students-container.component';
+import { StudentsContainerRoutingModule } from './students-container-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { StudentsContainerComponent } from './students-container.component';
   imports: [
     CommonModule,
     SharedModule,
+    StudentsContainerRoutingModule
   ],
 })
 export class StudentsContainerModule { }

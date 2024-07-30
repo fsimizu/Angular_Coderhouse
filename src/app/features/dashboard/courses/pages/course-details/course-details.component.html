@@ -1,1 +1,12 @@
-<p>course-details works!</p>
+<h2>{{ (course$ | async)?.courseName}}</h2>
+
+<hr>
+<p>{{ (course$ | async)?.courseDescription}}</p>
+
+@if (isLoading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+  <hr>
+<button mat-flat-button (click)="goBack()">
+    <mat-icon>undo</mat-icon>Go back
+</button>
