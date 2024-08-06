@@ -36,7 +36,6 @@ describe('StudentsService', () => {
                 gender: "male",
                 nationality: "Argentina",
                 dateOfBirth: new Date("10/02/1999"),
-                courses: []
             },
         ]
         service.getStudents().subscribe({
@@ -61,7 +60,6 @@ describe('StudentsService', () => {
                 "gender": "male",
                 "nationality": "Argentina",
                 "dateOfBirth": new Date("2002-08-01"),
-                "courses": [],
                 "id": "h45fj"
             },
             {
@@ -70,7 +68,6 @@ describe('StudentsService', () => {
                 "gender": "male",
                 "nationality": "Mexico",
                 "dateOfBirth": new Date("2024-08-12"),
-                "courses": [],
                 "id": "4h65z"
             },
         ];
@@ -95,7 +92,6 @@ describe('StudentsService', () => {
             "gender": "male",
             "nationality": "Mexico",
             "dateOfBirth": new Date("2024-08-12"),
-            "courses": [],
         };
         const expectedResponse: Student[] = [newStudent];
 
@@ -119,7 +115,6 @@ describe('StudentsService', () => {
                 "gender": "male",
                 "nationality": "Argentina",
                 "dateOfBirth": new Date("2002-08-01"),
-                "courses": [],
                 "id": "h45fj"
             },
             {
@@ -128,7 +123,6 @@ describe('StudentsService', () => {
                 "gender": "male",
                 "nationality": "Mexico",
                 "dateOfBirth": new Date("2024-08-12"),
-                "courses": [],
                 "id": "4h65z"
             },
         ];
