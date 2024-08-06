@@ -7,6 +7,14 @@
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   }
   <hr>
+
+  <h4>Students enrolled</h4>
+
+  <mat-list *ngFor="let student of students$ | async">
+    <mat-list-item>{{student.lastName}}, {{student.firstName}}</mat-list-item>
+  </mat-list>
+
+  <hr>
 <button mat-flat-button (click)="goBack()">
     <mat-icon>undo</mat-icon>Go back
 </button>

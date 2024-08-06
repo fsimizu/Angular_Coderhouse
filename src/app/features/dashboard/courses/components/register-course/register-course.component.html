@@ -17,6 +17,10 @@
         courseNameControl?.touched) {
         <mat-error>Name is too short</mat-error>
         } 
+        @if (courseNameControl?.hasError('pattern') &&
+        courseNameControl?.touched) {
+        <mat-error>Special characters are not allowed</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field>
@@ -28,7 +32,7 @@
         }
         @if (courseDescriptionControl?.hasError('minlength') &&
         courseDescriptionControl?.touched) {
-        <mat-error>Name is too short</mat-error>
+        <mat-error>Description is too short</mat-error>
         } 
       </mat-form-field>
 

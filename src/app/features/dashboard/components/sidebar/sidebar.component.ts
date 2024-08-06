@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Observable } from 'rxjs';
 import { User } from '../../../../shared/models/users';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,6 +17,7 @@ export class SidebarComponent {
   }
   
   authUser$: Observable<User | null>;
+  nameEnv = environment.envName
 
   constructor(private authService: AuthService) {
     this.authUser$ = this.authService.authUser$;

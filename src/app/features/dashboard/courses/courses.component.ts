@@ -1,10 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Course } from '../../../shared/models/course.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CoursesService } from '../../../core/services/courses.service';
-import { RegisterCourseComponent } from './components/register-course/register-course.component';
-import { generateId } from '../../../shared/utils';
+import { Course } from '../../../shared/models/course.model';
 import { DeleteCourseComponent } from './components/delete-course/delete-course.component';
+import { RegisterCourseComponent } from './components/register-course/register-course.component';
 
 @Component({
   selector: 'app-courses',
@@ -23,14 +23,14 @@ export class CoursesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getCourses()    
+    this.getCourses()
   }
 
   getCourses() {
     this.isLoading = true;
     this.coursesService.getCourses().subscribe({
       next: (courses) => {
-        this.courses = courses        
+        this.courses = courses
       },
       error: () => {
         this.isLoading = false
@@ -48,17 +48,26 @@ export class CoursesComponent implements OnInit {
       .afterClosed()
       .subscribe({
         next: (value) => {
-          value['id'] = generateId(4);
-          this.isLoading = true;
-          this.coursesService.addCourse(value).subscribe({
-            next: (courses) => {
-              this.courses = [...courses];
-            },
-            complete: () => {
-              this.isLoading = false
-            }
-          })
-        },
+          if (!!value) {
+            this.isLoading = true;
+            this.coursesService
+              .addCourse(value)
+              .subscribe({
+                next: () => {
+                  this.getCourses()
+                },
+                error: (error) => {
+                  if (error instanceof HttpErrorResponse) {
+                    alert('error creating the course');
+                    this.isLoading = false
+                  }
+                },
+                complete: () => {
+                  this.isLoading = false
+                }
+              })
+          }
+        }
       });
   }
 
@@ -70,18 +79,19 @@ export class CoursesComponent implements OnInit {
         next: (value) => {
           if (!!value) {
             this.isLoading = true;
-            this.coursesService.editCourse(editingCourse.id, value).subscribe({
-              next: (courses) => {
-                this.courses = [...courses];
-              },
-              error: () => {
-                this.isLoading = false
-                console.log("error editing the course")
-              },
-              complete: () => {
-                this.isLoading = false
-              }
-            })
+            this.coursesService.editCourse(editingCourse.id, value)
+              .subscribe({
+                next: () => {
+                  this.getCourses()
+                },
+                error: () => {
+                  this.isLoading = false
+                  console.log("error editing the course")
+                },
+                complete: () => {
+                  this.isLoading = false
+                }
+              })
           }
         },
       });
@@ -96,8 +106,8 @@ export class CoursesComponent implements OnInit {
           if (answer) {
             this.isLoading = true;
             this.coursesService.deleteCourseById(id).subscribe({
-              next: (courses) => {
-                this.courses = [...courses];
+              next: () => {
+                this.getCourses()
               },
               error: () => {
                 this.isLoading = false

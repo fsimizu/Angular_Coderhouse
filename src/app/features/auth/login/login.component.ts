@@ -8,27 +8,39 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-
   loginForm: FormGroup
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {
+  constructor(
+    private authService: AuthService, 
+    private fb: FormBuilder
+  ) {
 
     this.loginForm = this.fb.group({
       email: ['test@test.com', [Validators.required, Validators.email]],
       password: ['1234', Validators.required],
     })
 
-    // this.authService.login()
   }
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      // alert('invalido')
-
+      alert('Invalid form')
     } else {
-      this.authService.login();
+      const credentials = {
+        email: this.loginForm.get('email')?.value,
+        password: this.loginForm.get('password')?.value,
+      }
+      this.authService.login(credentials);
     }
 
   }
+
+  get emailControl() {
+    return this.loginForm.get('email');
+  }
+  get passwordControl() {
+    return this.loginForm.get('password');
+  }
+
 
 }

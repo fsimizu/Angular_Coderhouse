@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, map, Observable, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Course } from '../../shared/models/course.model';
 
 @Injectable({
@@ -7,52 +9,28 @@ import { Course } from '../../shared/models/course.model';
 })
 
 export class CoursesService {
-
-    private COURSES_DB = [
-        {
-            id: "e5gerh",
-            courseName: "Angular",
-            courseDescription: "Angular course and Typescript",
-        },
-        {
-            id: "34hrh",
-            courseName: "HTML",
-            courseDescription: "Web development with HTML",
-        },
-        {
-            id: "8h56h",
-            courseName: "Javascript",
-            courseDescription: "Javascript for front-end development",
-        },
-    ];
+    constructor(private httpClient: HttpClient){}
 
     getCourses(): Observable<Course[]> {
-        return of(this.COURSES_DB).pipe(delay(2000))
+        return this.httpClient.get<Course[]>(environment.apiUrl + '/courses')
     };
-
-    getStudentById(id: string): Observable<Course | undefined> {
+    
+    getCourseById(id: string): Observable<Course | undefined> {
         return this.getCourses().pipe(
             map((courses) => courses.find((el) => el.id === id))
         )
     };
 
     addCourse(course: Course): Observable<Course[]> {
-        this.COURSES_DB.push(course);
-        return this.getCourses()
+        return this.httpClient.post<Course[]>(environment.apiUrl + '/courses', course)
     };
 
     deleteCourseById (id: string): Observable<Course[]> {
-        this.COURSES_DB = this.COURSES_DB.filter((el) => el.id != id);
-        return this.getCourses()
+        return this.httpClient.delete<Course[]>(environment.apiUrl + '/courses/' + id)
     };
 
     editCourse(id: string, editedCourse: Course): Observable<Course[]> {
-        this.COURSES_DB = this.COURSES_DB.map((el) =>
-            el.id === id
-              ? { ...editedCourse, id }
-              : el
-          );
-        return this.getCourses()
+        return this.httpClient.put<Course[]>(environment.apiUrl + '/courses/' + id, editedCourse)
     };
 
 }

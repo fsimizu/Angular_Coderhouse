@@ -22,13 +22,12 @@ export class RegisterCourseComponent {
       courseName: [null, [
         Validators.required, 
         Validators.minLength(3),
-        Validators.pattern('^[a-zA-Z]+$')
+        Validators.pattern('^[a-zA-Z0-9 _]+$')
       ]],
       courseDescription: [null, [
         Validators.required, 
-        Validators.minLength(3),
-        Validators.pattern('^[a-zA-Z]+$')
-      ]],
+        Validators.minLength(3)
+      ]]
     });
 
     if (this.editingCourse) {
@@ -41,8 +40,8 @@ export class RegisterCourseComponent {
       this.matDialogRef.close(this.courseForm.value);
       // alert("all good!")
     } else {
-
-      /// mostar error
+      alert('not valid')
+      /// poner los errores en el form
     }
   }
 

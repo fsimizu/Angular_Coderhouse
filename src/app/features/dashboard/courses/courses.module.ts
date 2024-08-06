@@ -23,7 +23,6 @@ import { RegisterCourseComponent } from './components/register-course/register-c
     CommonModule,
     SharedModule,
     CoursesRoutingModule,
-  
   ],
 })
 export class CoursesModule { }

@@ -19,6 +19,10 @@
         firstNameControl?.touched) {
         <mat-error>Name is too short</mat-error>
         } 
+        @if (firstNameControl?.hasError('pattern') &&
+        firstNameControl?.touched) {
+        <mat-error>Special characters are not allowed</mat-error>
+        }
 
       </mat-form-field>
 
@@ -33,6 +37,10 @@
         lastNameControl?.touched) {
         <mat-error>Name is too short</mat-error>
         } 
+        @if (lastNameControl?.hasError('pattern') &&
+        lastNameControl?.touched) {
+        <mat-error>Special characters are not allowed</mat-error>
+        }
 
 
       </mat-form-field>

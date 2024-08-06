@@ -1,0 +1,15 @@
+<h2>{{ (user$ | async)?.firstName}} {{ (user$ | async)?.lastName}}</h2>
+
+<hr>
+<p><strong>ID:</strong> {{ (user$ | async)?.id}}</p>
+<p><strong>Email:</strong> {{ (user$ | async)?.email}}</p>
+<p><strong>Role:</strong> {{ (user$ | async)?.role}}</p>
+
+@if (isLoading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+  <hr>
+  
+<button mat-flat-button (click)="goBack()">
+    <mat-icon>undo</mat-icon>Go back
+</button>

@@ -1,5 +1,5 @@
 <div class="login_container">
-  <mat-card>
+  <mat-card >
     <mat-card-header>
         <h1 style="color: rgb(252, 243, 232);">Login</h1>
     </mat-card-header>
@@ -10,18 +10,37 @@
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
           <input formControlName="email" matInput type="email"/>
-          <mat-hint>You must enter a valid email address</mat-hint>
           <mat-icon matSuffix>email</mat-icon>
+          
+          @if (emailControl?.hasError('required') &&
+          emailControl?.touched) {
+          <mat-error>Required field</mat-error>
+          }
+          @if (emailControl?.hasError('email') &&
+          emailControl?.touched) {
+          <mat-error>Email is not valid</mat-error>
+          }
+
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
           <input formControlName="password" matInput type="password"/>
           <mat-icon matSuffix>key</mat-icon>
+          @if (passwordControl?.hasError('required') &&
+          passwordControl?.touched) {
+          <mat-error>Required field</mat-error>
+          }
         </mat-form-field>
 
+        
         <button type="submit" mat-flat-button>Login</button>
-
+        
+        <p>New to Ryde? 
+          <a 
+          routerLink="/auth/register"
+          >Register now</a>
+        </p>
       </form>
     </mat-card-content>
   </mat-card>

@@ -6,8 +6,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import { EnrollementsModule } from './enrollements/enrollements.module';
-import { StudentsContainerModule } from './students-container/students-container.module';
 
 @NgModule({
   declarations: [
@@ -23,8 +21,6 @@ import { StudentsContainerModule } from './students-container/students-container
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    StudentsContainerModule,
-    EnrollementsModule,
     SharedModule,
     MatNavList,
   ]

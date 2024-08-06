@@ -1,55 +1,78 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { User } from '../../shared/models/users';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { NotifierService } from './notifier.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private VALID_TOKEN = 'asdg43wga43gw34f44h';
-  private FAKE_USER: User = {
-    id: '2364t34f',
-    email: 'asd@test.com',
-    role: 'Admin'
-  }
   private _authUser$ = new BehaviorSubject<User | null>(null);
-
   authUser$ = this._authUser$.asObservable()
 
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private notifier: NotifierService
+  ) { }
 
-  constructor(private router: Router) {}  
+  login(credentials: { email: string, password: string }) {
+    this.http.get<User[]>(environment.apiUrl + '/users', {
+      params: {
+        email: credentials.email,
+        // password: credentials.password,
+      }
+    })
+      .subscribe({
+        next: (response) => {
+          if (!response.length || response[0].password !== credentials.password ) {
+            this.notifier.sendNotification('User or password invalid', 'warning');
+          }
+          else {
+            const authUser = response[0];
+            localStorage.setItem('token', authUser.token);
+            this._authUser$.next(authUser);
+            this.router.navigate(['dashboard', 'home'])
+          }
+        },
+        error: (err) => {
+          this.notifier.sendNotification('Server error. Please contact IT', 'warning');
+          console.log(err);
+        }
 
-  login(){
-    this._authUser$.next(this.FAKE_USER);
-    localStorage.setItem('token', this.VALID_TOKEN);
-    this.router.navigate(['dashboard', 'home'])
+      })
   }
 
-  
-  logout(){
+  logout() {
     localStorage.removeItem('token')
     this._authUser$.next(null);
     this.router.navigate(['auth', ''])
   }
 
-  verifyUser(): Observable<User | null> {
+  verifyToken(): Observable<boolean> {
     const token = localStorage.getItem('token');
-    if (token) {
-      this._authUser$.next(this.FAKE_USER);
-    } 
-    return this._authUser$
-  }
-
-  verifyToken(): Observable<boolean>{
-    const token = localStorage.getItem('token');
-    const isValid = this.VALID_TOKEN === token;
-    if (isValid) {
-      this._authUser$.next(this.FAKE_USER);
+    if (!token) {
+      return of(false)
     }
-    return of(isValid)
+    return this.http.get<User[]>(environment.apiUrl + '/users', {
+      params: {
+        token: token,
+      }
+    }).pipe(
+      map((response) => {
+        if (!response.length) {
+          return false;
+        } else {
+          const authUser = response[0];
+          localStorage.setItem('token', authUser.token);
+          this._authUser$.next(authUser);
+          return true
+        }
+      })
+    )
   }
 
-  getUser(){}
-  
 }

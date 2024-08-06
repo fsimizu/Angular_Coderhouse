@@ -30,12 +30,29 @@
             [activated] = "studentsLink.isActive"
             (click)="closeOnClick()"
             >Students</a>
-        <!-- <a 
-            *ngIf="(authUser$ | async)?.role === 'Admin'"
+
+        <a 
+            mat-list-item 
+            routerLink="enrollments"
+            routerLinkActive
+            #enrollmentsLink = "routerLinkActive"
+            [activated] = "enrollmentsLink.isActive"
+            (click)="closeOnClick()"
+            >Enrollments</a>
+
+        <a 
+            *ngIf="(authUser$ | async)?.role === 'admin'"
             mat-list-item
-            >Enrollments</a> -->
+            routerLink="users"
+            routerLinkActive
+            #usersLink = "routerLinkActive"
+            [activated] = "usersLink.isActive"
+            (click)="closeOnClick()"
+            >Users</a>
 
         <a mat-list-item (click)="logout()">Logout</a>
 
     </mat-nav-list>
+
+
 </mat-drawer>

@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, map, Observable, of } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Student } from '../../shared/models/student.model';
+
 
 @Injectable({
     providedIn: 'root'
@@ -8,35 +11,10 @@ import { Student } from '../../shared/models/student.model';
 
 export class StudentsService {
 
-    private STUDENTS_DB = [
-        {
-            id: "h45fj",
-            firstName: "Fernando",
-            lastName: "Chapa",
-            gender: "male",
-            nationality: 'Argentina',
-            dateOfBirth: new Date('10/02/1999')
-        },
-        {
-            id: "4h65z",
-            firstName: "Lucas",
-            lastName: "Rodriguez",
-            gender: "male",
-            nationality: 'Mexico',
-            dateOfBirth: new Date('10/02/1999')
-        },
-        {
-            id: "dfkka",
-            firstName: "Sofia",
-            lastName: "Gomez",
-            gender: "female",
-            nationality: 'Uruguay',
-            dateOfBirth: new Date('10/02/1999')
-        }
-    ];
+    constructor(private httpClient: HttpClient){}
 
     getStudents(): Observable<Student[]> {
-        return of(this.STUDENTS_DB).pipe(delay(2000))
+        return this.httpClient.get<Student[]>(environment.apiUrl + '/students')
     };
 
     getStudentById(id: string): Observable<Student | undefined> {
@@ -46,22 +24,17 @@ export class StudentsService {
     };
 
     addStudent(student: Student): Observable<Student[]> {
-        this.STUDENTS_DB.push(student);
-        return this.getStudents()
+        //Solo si el form es valido!
+        return this.httpClient.post<Student[]>(environment.apiUrl + '/students', student)
     };
 
     deleteStudentById(id: string): Observable<Student[]> {
-        this.STUDENTS_DB = this.STUDENTS_DB.filter((el) => el.id != id);
-        return this.getStudents()
+        return this.httpClient.delete<Student[]>(environment.apiUrl + '/students/' + id)
+
     };
 
     editStudent(id: string, editedStudent: Student): Observable<Student[]> {
-        this.STUDENTS_DB = this.STUDENTS_DB.map((el) =>
-            el.id === id
-                ? { ...editedStudent, id }
-                : el
-        );
-        return this.getStudents()
+        return this.httpClient.put<Student[]>(environment.apiUrl + '/students/' + id, editedStudent)
     };
 
 }

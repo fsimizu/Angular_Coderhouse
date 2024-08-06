@@ -2,10 +2,9 @@ export interface Student {
     id: string;
     firstName: string;
     lastName: string;
-    // gender: Gender;
-    gender: string;
+    gender: Gender;
     nationality: string;
     dateOfBirth: Date;
 }
 
-export type Gender = "Male" | "Female" | "Other"
+export type Gender = "male" | "female" | "other"

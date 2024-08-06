@@ -1,3 +1,4 @@
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,15 +8,18 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+  
   ],
   providers: [
     provideAnimationsAsync(), 
-    provideNativeDateAdapter()
+    provideNativeDateAdapter(),
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent]
 })

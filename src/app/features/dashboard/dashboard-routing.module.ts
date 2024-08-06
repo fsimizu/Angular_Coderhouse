@@ -10,7 +10,6 @@ const routes: Routes = [
   },
   {
     path: 'courses',
-    canActivate: [adminGuard],
     loadChildren: () => import('./courses/courses.module')
       .then((ref) => ref.CoursesModule),
   },
@@ -19,6 +18,22 @@ const routes: Routes = [
     loadChildren: () => import('./students-container/students-container.module')
       .then((ref) => ref.StudentsContainerModule)
   },
+  {
+    path: 'users',
+    canActivate: [adminGuard],
+    loadChildren: () => import('./users/users.module')
+      .then((ref) => ref.UsersModule),
+  },
+
+  //PENDING
+  {
+    path: 'enrollments',
+    loadChildren: () => import('./enrollments/enrollments.module')
+      .then((ref) => ref.EnrollmentsModule)
+  },
+
+
+
 
   // {
   //   path: '/',

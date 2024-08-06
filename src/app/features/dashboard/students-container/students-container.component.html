@@ -41,13 +41,14 @@
         <mat-icon>visibility</mat-icon>
       </button>
 
-      <button (click)="editStudent(element)" mat-icon-button>
+      <button *ngIf="(authUser$ | async)?.role === 'admin'" (click)="editStudent(element)" mat-icon-button>
         <mat-icon>edit</mat-icon>
       </button>
 
-      <button (click)="deleteStudentById(element.id)" mat-icon-button>
+      <button *ngIf="(authUser$ | async)?.role === 'admin'" (click)="deleteStudentById(element.id)" mat-icon-button>
         <mat-icon>delete</mat-icon>
       </button>
+      
     </td>    
   </ng-container>
   

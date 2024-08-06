@@ -1,0 +1,71 @@
+<h2 mat-dialog-title>
+    {{ editingUser ? "Editing user ID: " + editingUser.id : "New user" }}
+  </h2>
+  
+  <mat-dialog-content>
+
+    <form [formGroup]="userForm">
+
+      <mat-form-field >
+        <mat-label>First Name</mat-label>
+        <input formControlName="firstName" matInput />
+
+        
+        @if (firstNameControl?.hasError('required') &&
+        firstNameControl?.touched) {
+        <mat-error>Required field</mat-error>
+        }
+        @if (firstNameControl?.hasError('minlength') &&
+        firstNameControl?.touched) {
+        <mat-error>Name is too short</mat-error>
+        } 
+        @if (firstNameControl?.hasError('pattern') &&
+        firstNameControl?.touched) {
+        <mat-error>Special characters or numbers are not allowed</mat-error>
+        }
+
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input formControlName="lastName" matInput />
+        @if (lastNameControl?.hasError('required') &&
+        lastNameControl?.touched) {
+        <mat-error>Required field</mat-error>
+        }
+        @if (lastNameControl?.hasError('minlength') &&
+        lastNameControl?.touched) {
+        <mat-error>Name is too short</mat-error>
+        } 
+        @if (lastNameControl?.hasError('pattern') &&
+        lastNameControl?.touched) {
+        <mat-error>Special characters or numbers are not allowed</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field style="width: 85%;">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput />
+        @if (emailControl?.hasError('required') &&
+        emailControl?.touched) {
+        <mat-error>Required field</mat-error>
+        }
+        @if (emailControl?.hasError('minlength') &&
+        emailControl?.touched) {
+        <mat-error>email is too short</mat-error>
+        } 
+        <!-- @if (emailControl?.hasError('pattern') &&
+        emailControl?.touched) {
+        <mat-error>Spaces are not allowed</mat-error>
+        } -->
+      </mat-form-field>
+
+    </form>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions>
+    <button mat-dialog-close mat-button>Cancel</button>
+    <button (click)="onSubmit()" mat-button>Save</button>
+    <!-- Hacer el boton disabled si hay algun error en el formulario -->
+  </mat-dialog-actions>
+  
