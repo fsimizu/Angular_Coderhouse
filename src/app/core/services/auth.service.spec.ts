@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MockProvider } from 'ng-mocks';
 import { HttpClientTestingModule, HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { environment } from '../../../environments/environment';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -18,6 +19,7 @@ describe('AuthService', () => {
       providers: [
         MockProvider(Router),
         provideHttpClientTesting(),
+        provideMockStore({})
       ]
     });
     service = TestBed.inject(AuthService);

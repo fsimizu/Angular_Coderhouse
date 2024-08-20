@@ -4,6 +4,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { LoginComponent } from './login.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -20,6 +21,7 @@ describe('LoginComponent', () => {
       ],
       providers: [
         provideAnimationsAsync(), 
+        provideMockStore({})
       ],
     })
     .compileComponents();

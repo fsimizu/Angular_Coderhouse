@@ -25,7 +25,6 @@ export class StudentsService {
     };
 
     addStudent(student: Student): Observable<Student> {
-        //Solo si el form es valido!
         return this.httpClient.post<Student>(environment.apiUrl + '/students', student)
     };
 
@@ -33,7 +32,6 @@ export class StudentsService {
         return this.httpClient.delete<Student>(environment.apiUrl + '/students/' + id)
     };
 
-    // editStudent(editedStudent: Student): Observable<Student> {
     editStudent(id: string, editedStudent: Student): Observable<Student> {
         return this.httpClient.put<Student>(environment.apiUrl + '/students/' + id, editedStudent)
     };

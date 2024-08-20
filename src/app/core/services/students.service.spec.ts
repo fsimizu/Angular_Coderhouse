@@ -2,10 +2,10 @@ import { HttpClientTestingModule, HttpTestingController, provideHttpClientTestin
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { MockProvider } from 'ng-mocks';
-import { StudentsService } from './students.service';
+import { map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Student } from '../../shared/models/student.model';
-import { map } from 'rxjs';
+import { StudentsService } from './students.service';
 
 describe('StudentsService', () => {
     let service: StudentsService;
@@ -93,7 +93,7 @@ describe('StudentsService', () => {
             "nationality": "Mexico",
             "dateOfBirth": new Date("2024-08-12"),
         };
-        const expectedResponse: Student[] = [newStudent];
+        const expectedResponse: Student = newStudent;
 
         service.addStudent(newStudent).subscribe((students) => {
             expect(students).toEqual(expectedResponse);
@@ -127,15 +127,15 @@ describe('StudentsService', () => {
             },
         ];
         const expectedStudentsAfterDelete = mockedStudentsBeforeDelete.filter((el) => el.id !== studentId);
-      
-        service.deleteStudentById(studentId).subscribe(() => {});
-      
+
+        service.deleteStudentById(studentId).subscribe(() => { });
+
         const mockRequest = httpController.expectOne({
-          url: environment.apiUrl + '/students/' + studentId,
-          method: 'DELETE'
+            url: environment.apiUrl + '/students/' + studentId,
+            method: 'DELETE'
         });
         mockRequest.flush({});
         expect(mockRequest).toBeTruthy();
         expect(expectedStudentsAfterDelete.find(student => student.id === studentId)).toBeUndefined();
-      });
+    });
 });

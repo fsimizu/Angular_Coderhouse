@@ -66,6 +66,11 @@
       "courseName": "Data Science I",
       "courseDescription": "Fundamentos de data science",
       "id": "d07c"
+    },
+    {
+      "id": "8a22",
+      "courseName": "Data Science II",
+      "courseDescription": "Intermediate course"
     }
   ],
   "students": [
@@ -110,5 +115,31 @@
       "dateOfBirth": "2024-04-01T13:00:00.000Z"
     }
   ],
-  "enrollments": []
+  "enrollments": [
+    {
+      "id": "582d",
+      "studentId": "dfkka",
+      "courseId": "e5gerh"
+    },
+    {
+      "id": "e167",
+      "studentId": "7909",
+      "courseId": "e5gerh"
+    },
+    {
+      "id": "f74b",
+      "studentId": "h45fj",
+      "courseId": "e5gerh"
+    },
+    {
+      "id": "87ca",
+      "studentId": "h45fj",
+      "courseId": "8h56h"
+    },
+    {
+      "id": "037f",
+      "studentId": "h45fj",
+      "courseId": "d07c"
+    }
+  ]
 }

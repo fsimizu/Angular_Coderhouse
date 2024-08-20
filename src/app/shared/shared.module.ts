@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogActions, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -16,9 +16,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DashboardRoutingModule } from '../features/dashboard/dashboard-routing.module';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { HeadersDirective } from './directives/headers.directive';
 import { FullNamePipe } from './pipes/full-name.pipe';
-import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 @NgModule({
   declarations: [
