@@ -1,6 +1,6 @@
 <h3>Users</h3>
 
-<table mat-table [dataSource]="users" class="mat-elevation-z8">
+<table mat-table [dataSource]="users$" class="mat-elevation-z8">
   
   <!-- Id Column -->
   <ng-container matColumnDef="id">
@@ -51,6 +51,6 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-@if (isLoading) {
+@if (isLoadingUsers$ | async) {
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 }

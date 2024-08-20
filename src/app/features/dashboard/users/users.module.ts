@@ -6,6 +6,10 @@ import { UsersComponent } from './users.component';
 import { DeleteUserComponent } from './components/delete-user/delete-user.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { UsersEffects } from './store/users.effects';
+import { UsersFeature } from './store/users.reducer';
 
 @NgModule({
   declarations: [
@@ -22,6 +26,8 @@ import { UserDetailsComponent } from './pages/user-details/user-details.componen
     UsersRoutingModule,
     CommonModule,
     SharedModule,
+    EffectsModule.forFeature([UsersEffects]),
+    StoreModule.forFeature(UsersFeature),
   ],
 })
 export class UsersModule { }

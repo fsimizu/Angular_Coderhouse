@@ -3,6 +3,9 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { Observable } from 'rxjs';
 import { User } from '../../../../shared/models/users';
 import { environment } from '../../../../../environments/environment';
+import { Store } from '@ngrx/store';
+import { RootState } from '../../../../core/store';
+import { selectAuthUser } from '../../../../core/store/auth/auth.selectors';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,8 +22,12 @@ export class SidebarComponent {
   authUser$: Observable<User | null>;
   nameEnv = environment.envName
 
-  constructor(private authService: AuthService) {
-    this.authUser$ = this.authService.authUser$;
+  constructor(
+    private authService: AuthService,
+    private store: Store<RootState> 
+  ) {
+    // this.authUser$ = this.authService.authUser$;
+    this.authUser$ = this.store.select(selectAuthUser)
   }
 
   logout() {

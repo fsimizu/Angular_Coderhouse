@@ -15,7 +15,5 @@ export class DeleteStudentComponent {
   onSubmit(answer: boolean): void {
     this.matDialogRef.close(answer);
   }
-
-
 }
 

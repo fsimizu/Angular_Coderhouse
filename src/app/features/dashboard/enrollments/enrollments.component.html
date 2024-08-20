@@ -1,69 +1,25 @@
 <h3>Enrollments</h3>
-
  
   <mat-dialog-content>
 
     <form (ngSubmit)="onSubmit()" [formGroup]="enrollmentsForm">
 
-      <!-- <mat-form-field>
-        <mat-label>First Name</mat-label>
-        <input formControlName="firstName" matInput /> -->
-
-        
-        <!-- @if (firstNameControl?.hasError('required') &&
-        firstNameControl?.touched) {
-        <mat-error>Required field</mat-error>
-        }
-        @if (firstNameControl?.hasError('minlength') &&
-        firstNameControl?.touched) {
-        <mat-error>Name is too short</mat-error>
-        } 
-        @if (firstNameControl?.hasError('pattern') &&
-        firstNameControl?.touched) {
-        <mat-error>Special characters are not allowed</mat-error>
-        } -->
-
-      <!-- </mat-form-field> -->
-
-      <!-- <mat-form-field>
-        <mat-label>Last Name</mat-label>
-        <input formControlName="lastName" matInput /> -->
-
-
-        <!-- @if (lastNameControl?.hasError('required') &&
-        lastNameControl?.touched) {
-        <mat-error>Required field</mat-error>
-        }
-        @if (lastNameControl?.hasError('minlength') &&
-        lastNameControl?.touched) {
-        <mat-error>Name is too short</mat-error>
-        } 
-        @if (lastNameControl?.hasError('pattern') &&
-        lastNameControl?.touched) {
-        <mat-error>Special characters are not allowed</mat-error>
-        } -->
-
-
-      <!-- </mat-form-field> -->
-
         <mat-form-field>
           <mat-label>Course</mat-label>
-          <input matInput type="text" placeholder="Search course" (input)="filterCourses($event)">
+          <!-- <input matInput type="text" placeholder="Search course" (input)="filterCourses($event)"> -->
           <mat-select formControlName="courseId">
-            <mat-option *ngFor="let course of filteredCourses" [value]="course.id">
+            <mat-option *ngFor="let course of courses$ | async" [value]="course.id">
               {{ course.courseName }}
             </mat-option>
           </mat-select>
           <mat-error>Required field</mat-error>
-        </mat-form-field>
-        
-
+        </mat-form-field>      
 
       <mat-form-field>
         <mat-label>Student</mat-label>
-        <input matInput type="text" placeholder="Search student" (input)="filterStudents($event)">
+        <!-- <input matInput type="text" placeholder="Search student" (input)="filterStudents($event)"> -->
         <mat-select formControlName="studentId">
-          <mat-option *ngFor="let student of filteredStudents" [value]="student.id">
+          <mat-option *ngFor="let student of students$ | async" [value]="student.id">
             {{ student.lastName }}, {{ student.firstName }}
           </mat-option>
         </mat-select>
@@ -73,9 +29,9 @@
       <p>
         <button (click)="resetForm()" mat-dialog-close mat-button>Reset</button>
         <button type="submit" mat-button>Enroll</button>
-        <!-- Hacer el boton disabled si hay algun error en el formaulario -->
       </p>
-
+      
+      <!-- <button (click)="fer()" mat-button>Delete</button> -->
 
     </form>
   </mat-dialog-content>

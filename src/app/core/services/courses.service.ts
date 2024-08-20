@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Course } from '../../shared/models/course.model';
+import { EnrollmentEmbeded } from '../../shared/models/enrollment.model';
 
 @Injectable({
     providedIn: 'root'
@@ -15,22 +16,24 @@ export class CoursesService {
         return this.httpClient.get<Course[]>(environment.apiUrl + '/courses')
     };
     
-    getCourseById(id: string): Observable<Course | undefined> {
-        return this.getCourses().pipe(
-            map((courses) => courses.find((el) => el.id === id))
-        )
+    getCourseById(id: string): Observable<Course> {
+        return this.httpClient.get<Course>(environment.apiUrl + '/courses/' + id )
     };
 
-    addCourse(course: Course): Observable<Course[]> {
-        return this.httpClient.post<Course[]>(environment.apiUrl + '/courses', course)
+    getCoursesStudents (id: string): Observable<EnrollmentEmbeded[]> {           
+        return this.httpClient.get<EnrollmentEmbeded[]>(environment.apiUrl + '/enrollments?courseId=' + id + '&_embed=course&_embed=student')
     };
 
-    deleteCourseById (id: string): Observable<Course[]> {
-        return this.httpClient.delete<Course[]>(environment.apiUrl + '/courses/' + id)
+    addCourse(course: Course): Observable<Course> {
+        return this.httpClient.post<Course>(environment.apiUrl + '/courses', course)
     };
 
-    editCourse(id: string, editedCourse: Course): Observable<Course[]> {
-        return this.httpClient.put<Course[]>(environment.apiUrl + '/courses/' + id, editedCourse)
+    deleteCourseById (id: string): Observable<Course> {
+        return this.httpClient.delete<Course>(environment.apiUrl + '/courses/' + id)
+    };
+
+    editCourse(id: string, editedCourse: Course): Observable<Course> {
+        return this.httpClient.put<Course>(environment.apiUrl + '/courses/' + id, editedCourse)
     };
 
 }

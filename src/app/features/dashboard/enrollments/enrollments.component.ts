@@ -1,117 +1,54 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CoursesService } from '../../../core/services/courses.service';
-import { EnrollmentsService } from '../../../core/services/enrollments.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { NotifierService } from '../../../core/services/notifier.service';
-import { StudentsService } from '../../../core/services/students.service';
+import { RootState } from '../../../core/store';
 import { Course } from '../../../shared/models/course.model';
-import { Enrollment } from '../../../shared/models/enrollment.model';
 import { Student } from '../../../shared/models/student.model';
-
+import { EnrollmentsActions } from './store/enrollments.actions';
+import { selectEnrollmentsCourses, selectEnrollmentsStudents } from './store/enrollments.selectors';
 
 @Component({
   selector: 'app-enrollments',
   templateUrl: './enrollments.component.html',
   styleUrl: './enrollments.component.scss'
 })
-export class EnrollmentsComponent implements OnInit{
-
+export class EnrollmentsComponent implements OnInit {
   enrollmentsForm: FormGroup;
   isLoading = true;
-  students: Student[] = [];
-  filteredStudents: Student[] = [];
-  courses: Course[] = [];
-  filteredCourses: Course[] = [];
-
-  enrollments: Enrollment[] = [];
+  students$: Observable<Student[]>;
+  courses$: Observable<Course[]>
 
   constructor(
     private fb: FormBuilder,
-    private studentsService: StudentsService,
-    private coursesService: CoursesService,
-    private enrollmentsService: EnrollmentsService,
-    private notifier: NotifierService
+    private notifier: NotifierService,
+    private store: Store<RootState>
   ) {
-
     this.enrollmentsForm = this.fb.group({
       courseId: [null, Validators.required],
       studentId: [null, Validators.required],
     });
-    
+    this.students$ = this.store.select(selectEnrollmentsStudents);
+    this.courses$ = this.store.select(selectEnrollmentsCourses);
   }
-
 
   ngOnInit(): void {
-    this.getStudents(),
-    this.getCourses()
-        
-  }
-  
-  filterCourses(event: any) {
-    const searchValue = event.target.value.toLowerCase();
-    this.filteredCourses = this.courses.filter(course => course.courseName.toLowerCase().includes(searchValue));
-  }
-  filterStudents(event: any) {
-    const searchValue = event.target.value.toLowerCase();
-    this.filteredStudents = this.students.filter(student => student.lastName.toLowerCase().includes(searchValue));
-  }
-
-
-  getStudents() {
-    this.isLoading = true;
-    this.studentsService.getStudents().subscribe({
-      next: (students) => {
-        this.students = students
-      },
-      error: () => {
-        this.isLoading = false
-        console.log("error loading the students")
-      },
-      complete: () => {
-        this.isLoading = false;
-        this.filteredStudents = this.students;
-      }
-    })
-  };
-
-  getCourses() {
-    this.isLoading = true;
-    this.coursesService.getCourses().subscribe({
-      next: (courses) => {
-        this.courses = courses
-      },
-      error: () => {
-        this.isLoading = false
-        console.log("error loading the courses")
-      },
-      complete: () => {
-        this.isLoading = false;
-        this.filteredCourses = this.courses;
-        
-      }
-    })
+    this.store.dispatch(EnrollmentsActions.loadStudentsAndCourses())
   }
 
   onSubmit(): void {
     if (this.enrollmentsForm.valid) {
-      const newEnrollment = this.enrollmentsForm.value;
-   
-      this.enrollmentsService
-      .addEnrollment(newEnrollment)
-      .subscribe({
-        next: () => {
-          this.notifier.sendNotification('User enrolled successfully', 'success');
-          this.enrollmentsForm.reset();
-        },
-        error: (error) => {
-          console.error('Error enrolling the student ', error);
-          this.notifier.sendNotification('Enrollment failed: ' + error.message, 'error');
+      this.store.dispatch(EnrollmentsActions.createEnrollment({
+        payload: {
+          id: undefined,
+          studentId: this.enrollmentsForm.get('studentId')?.value,
+          courseId: this.enrollmentsForm.get('courseId')?.value,
         }
-      })
+      }))    
+      
     } else {
-
-      /// mostar error
-      alert('ko')
+      this.notifier.sendNotification("Invalid form", "warning")
     }
   }
 

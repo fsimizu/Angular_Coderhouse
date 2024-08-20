@@ -1,10 +1,15 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CoursesService } from '../../../core/services/courses.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { RootState } from '../../../core/store';
+import { selectAuthUser } from '../../../core/store/auth/auth.selectors';
 import { Course } from '../../../shared/models/course.model';
+import { User } from '../../../shared/models/users';
 import { DeleteCourseComponent } from './components/delete-course/delete-course.component';
 import { RegisterCourseComponent } from './components/register-course/register-course.component';
+import { CoursesActions } from './store/courses.actions';
+import { selectCourses, selectCoursesError, selectCoursesIsLoading } from './store/courses.selectors';
 
 @Component({
   selector: 'app-courses',
@@ -13,33 +18,25 @@ import { RegisterCourseComponent } from './components/register-course/register-c
 })
 export class CoursesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'courseName', 'courseDescription', 'actions'];
-
-  courses: Course[] = []
+  courses: Course[] = [];
+  courses$: Observable<Course[]>;
+  isLoadingCourses$: Observable<boolean>;
+  error$: Observable<unknown>
+  authUser$: Observable<User | null>;
   isLoading = false
 
   constructor(
     private matDialog: MatDialog,
-    private coursesService: CoursesService
-  ) { }
-
-  ngOnInit(): void {
-    this.getCourses()
+    private store: Store<RootState>
+  ) { 
+    this.authUser$ = this.store.select(selectAuthUser);
+    this.courses$ = this.store.select(selectCourses);
+    this.isLoadingCourses$ = this.store.select(selectCoursesIsLoading);
+    this.error$ = this.store.select(selectCoursesError)
   }
 
-  getCourses() {
-    this.isLoading = true;
-    this.coursesService.getCourses().subscribe({
-      next: (courses) => {
-        this.courses = courses
-      },
-      error: () => {
-        this.isLoading = false
-        console.log("error loading the courses")
-      },
-      complete: () => {
-        this.isLoading = false;
-      }
-    })
+  ngOnInit(): void {
+    this.store.dispatch(CoursesActions.loadCourses())
   }
 
   openDialog(): void {
@@ -49,23 +46,7 @@ export class CoursesComponent implements OnInit {
       .subscribe({
         next: (value) => {
           if (!!value) {
-            this.isLoading = true;
-            this.coursesService
-              .addCourse(value)
-              .subscribe({
-                next: () => {
-                  this.getCourses()
-                },
-                error: (error) => {
-                  if (error instanceof HttpErrorResponse) {
-                    alert('error creating the course');
-                    this.isLoading = false
-                  }
-                },
-                complete: () => {
-                  this.isLoading = false
-                }
-              })
+            this.store.dispatch(CoursesActions.addCourses({ newCourse: value }))
           }
         }
       });
@@ -78,20 +59,7 @@ export class CoursesComponent implements OnInit {
       .subscribe({
         next: (value) => {
           if (!!value) {
-            this.isLoading = true;
-            this.coursesService.editCourse(editingCourse.id, value)
-              .subscribe({
-                next: () => {
-                  this.getCourses()
-                },
-                error: () => {
-                  this.isLoading = false
-                  console.log("error editing the course")
-                },
-                complete: () => {
-                  this.isLoading = false
-                }
-              })
+            this.store.dispatch(CoursesActions.editCourses({id: editingCourse.id, editedCourse: value}))
           }
         },
       });
@@ -104,19 +72,7 @@ export class CoursesComponent implements OnInit {
       .subscribe({
         next: (answer) => {
           if (answer) {
-            this.isLoading = true;
-            this.coursesService.deleteCourseById(id).subscribe({
-              next: () => {
-                this.getCourses()
-              },
-              error: () => {
-                this.isLoading = false
-                console.log("error deleting the course")
-              },
-              complete: () => {
-                this.isLoading = false
-              }
-            })
+            this.store.dispatch(CoursesActions.deleteCourses({ id }))
           }
         },
       });

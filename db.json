@@ -1,18 +1,18 @@
 {
   "users": [
     {
-      "firstName": "Fernando",
-      "lastName": "Chapa",
-      "email": "Fernando@test.com",
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@ryde.com",
       "role": "admin",
       "password": "1234",
       "token": "weyw4ygse4s4t34t",
       "id": "s34aj"
     },
     {
-      "firstName": "Juan",
-      "lastName": "Garcia",
-      "email": "Juan@test.com",
+      "firstName": "User",
+      "lastName": "User",
+      "email": "user@ryde.com",
       "role": "user",
       "password": "1234",
       "token": "21323ghygse4s4t34t",
@@ -28,58 +28,70 @@
       "token": "wq7zU2n8qjRqN4V"
     },
     {
-      "id": "1cb8",
       "firstName": "Guillermo",
       "lastName": "Rivas",
       "email": "willy@test.com",
       "role": "user",
       "password": "1234",
-      "token": "bnL26qQ5yZ1NQ2FXdFIs"
+      "token": "bnL26qQ5yZ1NQ2FXdFIs",
+      "id": "1cb8"
+    },
+    {
+      "id": "9ba3",
+      "firstName": "Carla",
+      "lastName": "Garcia",
+      "email": "carla@test.com",
+      "role": "user",
+      "password": "1234",
+      "token": "Twplm6pPzT8aQHcmuyI1"
     }
   ],
   "courses": [
     {
       "courseName": "Angular 2",
-      "courseDescription": "Angular course and Typescript",
+      "courseDescription": "Angular course and Typescript 2",
       "id": "e5gerh"
     },
     {
-      "id": "34hrh",
       "courseName": "HTML",
-      "courseDescription": "Web development with HTML"
+      "courseDescription": "Web development with HTML",
+      "id": "34hrh"
     },
     {
       "courseName": "Javascript",
       "courseDescription": "Javascript for front-end development",
       "id": "8h56h"
+    },
+    {
+      "courseName": "Data Science I",
+      "courseDescription": "Fundamentos de data science",
+      "id": "d07c"
     }
   ],
   "students": [
     {
+      "id": "h45fj",
       "firstName": "Fernando",
       "lastName": "Chapa",
       "gender": "male",
-      "nationality": "Argentina",
-      "dateOfBirth": "2024-08-01T14:00:00.000Z",
-      "id": "h45fj"
+      "nationality": "Mexico",
+      "dateOfBirth": "2024-08-12T14:00:00.000Z"
     },
     {
+      "id": "4h65z",
       "firstName": "Lucas",
       "lastName": "Rodriguez",
       "gender": "male",
       "nationality": "Mexico",
-      "dateOfBirth": "2024-08-12T14:00:00.000Z",
-      "courses": [],
-      "id": "4h65z"
+      "dateOfBirth": "2024-08-12T14:00:00.000Z"
     },
     {
-      "firstName": "Sofiaa",
+      "id": "dfkka",
+      "firstName": "Sofia",
       "lastName": "Gomez",
       "gender": "female",
       "nationality": "Uruguay",
-      "dateOfBirth": "2024-08-21T14:00:00.000Z",
-      "courses": [],
-      "id": "dfkka"
+      "dateOfBirth": "2024-08-21T14:00:00.000Z"
     },
     {
       "id": "7909",
@@ -87,8 +99,7 @@
       "lastName": "Lopez Gil",
       "gender": "male",
       "nationality": "Argentina",
-      "dateOfBirth": "2024-07-31T14:00:00.000Z",
-      "courses": []
+      "dateOfBirth": "2024-07-31T14:00:00.000Z"
     },
     {
       "id": "0e62",
@@ -99,41 +110,5 @@
       "dateOfBirth": "2024-04-01T13:00:00.000Z"
     }
   ],
-  "enrollments": [
-    {
-      "id": "77bc",
-      "courseId": "e5gerh",
-      "studentId": "h45fj"
-    },
-    {
-      "id": "e264",
-      "courseId": "e5gerh",
-      "studentId": "4h65z"
-    },
-    {
-      "id": "c0d7",
-      "courseId": "8h56h",
-      "studentId": "dfkka"
-    },
-    {
-      "id": "3b7b",
-      "courseId": "34hrh",
-      "studentId": "h45fj"
-    },
-    {
-      "id": "2b0e",
-      "courseId": "e5gerh",
-      "studentId": "7909"
-    },
-    {
-      "id": "8d10",
-      "courseId": "e5gerh",
-      "studentId": "dfkka"
-    },
-    {
-      "id": "21f4",
-      "courseId": "34hrh",
-      "studentId": "0e62"
-    }
-  ]
+  "enrollments": []
 }

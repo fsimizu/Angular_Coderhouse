@@ -29,17 +29,17 @@ export class UsersService {
     //     )
     // };
 
-    addUsers(users: User): Observable<User[]> {
-        return this.httpClient.post<User[]>(environment.apiUrl + '/users', users)
+    addUsers(users: User): Observable<User> {
+        return this.httpClient.post<User>(environment.apiUrl + '/users', users)
     };
 
-    deleteUserById(id: string): Observable<User[]> {
-        return this.httpClient.delete<User[]>(environment.apiUrl + '/users/' + id)
+    deleteUserById(id: string): Observable<User> {
+        return this.httpClient.delete<User>(environment.apiUrl + '/users/' + id)
 
     };
 
-    editUsers(id: string, editedUser: User): Observable<User[]> {
-        return this.httpClient.put<User[]>(environment.apiUrl + '/users/' + id, editedUser)
+    editUsers(id: string, editedUser: User): Observable<User> {
+        return this.httpClient.put<User>(environment.apiUrl + '/users/' + id, editedUser)
     };
 
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NotifierService } from '../../../core/services/notifier.service';
-import { UsersService } from '../../../core/services/users.service';
+import { Store } from '@ngrx/store';
+import { RootState } from '../../../core/store';
+import { UsersActions } from '../../dashboard/users/store/users.actions';
 
 function generateId(length: number) {
   let result = '';
@@ -27,17 +27,16 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private usersService: UsersService,
-    private router: Router,
-    private notifier: NotifierService
+    private store: Store<RootState>
+
   ) {
 
     this.registerForm = this.fb.group({
-      firstName: ['name', Validators.required],
-      lastName: ['last', Validators.required],
-      email: ['test@test.com', [Validators.required, Validators.email]],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       role: ['user'],
-      password: ['1234', Validators.required],
+      password: ['', Validators.required],
       token: [generateId(20)]
     })
 
@@ -46,21 +45,7 @@ export class RegisterComponent {
   onSubmit(): void {
     if (this.registerForm.valid) {
       const newUser = this.registerForm.value;
-
-      this.usersService
-      .addUsers(newUser)
-      .subscribe({
-        next: () => {
-          this.notifier.sendNotification('User created successfully', 'success');
-        },
-        error: (error) => {
-          console.error('Error creating user', error);
-        },
-        complete: () => {
-          this.router.navigate(['/login']);
-        }
-      }
-      );
+      this.store.dispatch(UsersActions.addUsers({ newUser }))
     }
   };
 
@@ -70,7 +55,6 @@ export class RegisterComponent {
   get lastNameControl() {
     return this.registerForm.get('lastName');
   }
-
   get emailControl() {
     return this.registerForm.get('email');
   }

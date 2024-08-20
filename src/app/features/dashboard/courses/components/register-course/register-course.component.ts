@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Course } from '../../../../../shared/models/course.model';
 
-
 @Component({
   selector: 'app-register-course',
   templateUrl: './register-course.component.html',
@@ -38,10 +37,8 @@ export class RegisterCourseComponent {
   onSubmit(): void {
     if (this.courseForm.valid) {
       this.matDialogRef.close(this.courseForm.value);
-      // alert("all good!")
     } else {
-      alert('not valid')
-      /// poner los errores en el form
+      // alert('not valid')
     }
   }
 

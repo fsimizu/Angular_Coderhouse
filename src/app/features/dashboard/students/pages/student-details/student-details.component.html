@@ -1,0 +1,28 @@
+<h2>{{ (student$ | async)?.firstName}} {{ (student$ | async)?.lastName}}</h2>
+
+<hr>
+<p><strong>Gender:</strong> {{ (student$ | async)?.gender}}</p>
+<p><strong>Nationality:</strong> {{ (student$ | async)?.nationality}}</p>
+<p><strong>Date of birth:</strong> {{ (student$ | async)?.dateOfBirth | date:'dd-MM-yyyy' }}</p>
+<hr>
+
+<h4>Courses enrolled in:</h4>
+
+<mat-list *ngFor="let studentCourse of (studentCourses$ | async)">
+
+  <mat-list-item>
+    {{studentCourse.course.courseName}}
+     <button mat-icon-button (click)="unenroll(studentCourse.course.id, studentCourse.student.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+
+  </mat-list-item>
+
+</mat-list>
+
+@if (isLoadingStudents$ | async) {<mat-progress-bar mode="indeterminate"></mat-progress-bar>}
+<hr>
+
+<button mat-flat-button (click)="goBack()">
+  <mat-icon>undo</mat-icon>Go back
+</button>
