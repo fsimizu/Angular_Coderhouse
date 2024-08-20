@@ -1,9 +1,8 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { EnrollmentEmbeded } from '../../../../shared/models/enrollment.model';
 import { Student } from '../../../../shared/models/student.model';
-import { StudentsActions } from './students.actions';
 import { EnrollmentsActions } from '../../enrollments/store/enrollments.actions';
-import { selectStudentCourses } from './students.selectors';
+import { StudentsActions } from './students.actions';
 
 export const studentsFeatureKey = 'students';
 

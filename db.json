@@ -48,13 +48,13 @@
   ],
   "courses": [
     {
-      "courseName": "Angular 2",
-      "courseDescription": "Angular course and Typescript 2",
+      "courseName": "Angular",
+      "courseDescription": "Angular and Typescript",
       "id": "e5gerh"
     },
     {
       "courseName": "HTML",
-      "courseDescription": "Web development with HTML",
+      "courseDescription": "Web development with HTML and CSS",
       "id": "34hrh"
     },
     {
@@ -64,7 +64,7 @@
     },
     {
       "courseName": "Data Science I",
-      "courseDescription": "Fundamentos de data science",
+      "courseDescription": "Foundations of data science",
       "id": "d07c"
     },
     {
@@ -140,6 +140,11 @@
       "id": "037f",
       "studentId": "h45fj",
       "courseId": "d07c"
+    },
+    {
+      "id": "5335",
+      "studentId": "7909",
+      "courseId": "8h56h"
     }
   ]
 }

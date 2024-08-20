@@ -27,29 +27,6 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
 
-  // on(EnrollmentsActions.loadEnrollments, (state) => {
-  //   return {
-  //     ...state,
-  //     isLoading: true
-  //   }
-  // }),
-  // on(EnrollmentsActions.loadEnrollmentsSuccess, (state, action) => {
-  //   return {
-  //     ...state,
-  //     isLoading: false,
-  //     enrollments: action.data,
-  //     error: null
-  //   }
-  // }),
-  // on(EnrollmentsActions.loadEnrollmentsFailure, (state, action) => {
-  //   return {
-  //     ...state,
-  //     isLoading: false,
-  //     error: action.error
-
-  //   }
-  // }),
-
   on(EnrollmentsActions.loadStudentsAndCourses, (state) => {
     return {
       ...state,
@@ -70,54 +47,8 @@ export const reducer = createReducer(
       ...state,
       isLoadingStudentsAndCourses: false,
       error: action.error
-
     }
   }),
-
-
-// hace falta si no lo muestro en la pantalla?
-  // on(EnrollmentsActions.createEnrollmentSuccess, (state, action) => {   
-  //   return {
-  //     ...state,
-  //     enrollments: [...state.enrollments, action.data],
-  //     error: null
-  //   }
-  // }),
-  // on(EnrollmentsActions.createEnrollmentFailure, (state, action) => {
-  //   return {
-  //     ...state,
-  //     error: action.error
-  //   }
-  // }),
-
-
-
-  // on(EnrollmentsActions.deleteEnrollmentByCourseAndStudent, (state) => {
-  //   console.log("fer started on Enrollments!");
-    
-  //   return {
-  //     ...state,
-  //     isLoadingStudentsAndCourses: true
-  //   }
-  // }),
-  // on(EnrollmentsActions.deleteEnrollmentByCourseAndStudentSuccess, (state, action) => {
-  //   console.log("enrollment deleted: ", action.data);
-
-  //   return {
-  //     ...state,
-  //     isLoadingStudentsAndCourses: false,
-  //   }
-  // }),
-  //   on(EnrollmentsActions.deleteEnrollmentByCourseAndStudentFailure, (state, action) => {
-    
-  //   console.log("enrollment error");
-  //   return {
-  //     ...state,
-  //     error: action.error
-  //   }
-  // }),
-
-
 
 );
 

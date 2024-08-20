@@ -24,21 +24,11 @@ const routes: Routes = [
     loadChildren: () => import('./users/users.module')
       .then((ref) => ref.UsersModule),
   },
-
-  //PENDING
   {
     path: 'enrollments',
     loadChildren: () => import('./enrollments/enrollments.module')
       .then((ref) => ref.EnrollmentsModule)
   },
-
-
-
-
-  // {
-  //   path: '/',
-  //   redirectTo: 'home'
-  // }
 ];
 
 @NgModule({

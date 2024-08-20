@@ -89,9 +89,7 @@ export class StudentsEffects {
       mergeMap((action) =>
         this.enrollmentsService.getEnrollmentByCourseAndStudent(action.courseId, action.studentId)
           .pipe(
-            mergeMap(enrollment => {
-              // console.log("effectttt en students");
-              
+            mergeMap(enrollment => {              
               return this.enrollmentsService.deleteEnrollment(enrollment[0].id)
                 .pipe(
                   map((data) => EnrollmentsActions.deleteEnrollmentByCourseAndStudentSuccess({ data })),

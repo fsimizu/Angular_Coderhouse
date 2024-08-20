@@ -38,7 +38,7 @@ export class RegisterCourseComponent {
     if (this.courseForm.valid) {
       this.matDialogRef.close(this.courseForm.value);
     } else {
-      // alert('not valid')
+      alert('not valid')
     }
   }
 

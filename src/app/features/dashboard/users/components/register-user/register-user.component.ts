@@ -48,9 +48,8 @@ export class RegisterUserComponent {
   onSubmit(): void {
     if (this.userForm.valid) {
       this.matDialogRef.close(this.userForm.value);
-      // alert("all good!")
     } else {
-      /// mostar error
+      alert("error in the form");
     }
   }
 

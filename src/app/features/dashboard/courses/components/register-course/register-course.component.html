@@ -41,7 +41,6 @@
   
   <mat-dialog-actions>
     <button mat-dialog-close mat-button>Cancel</button>
-    <button (click)="onSubmit()" mat-button>Save</button>
-    <!-- Hacer el boton disabled si hay algun error en el formaulario -->
+    <button (click)="onSubmit()" mat-button [disabled]="!courseForm.valid">Save</button>
   </mat-dialog-actions>
   

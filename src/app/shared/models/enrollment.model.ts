@@ -7,7 +7,6 @@ export interface Enrollment {
     courseId: string
 }
 
-
 export interface StudentAndCourse {
     students: Student[];
     courses: Course[]

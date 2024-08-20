@@ -1,14 +1,22 @@
 <h3>Students</h3>
 
+@if(error$ | async) {
+<div class="error">
+  <mat-icon style="transform: scale(4); margin-bottom: 40px;">error</mat-icon>
+  <h1>
+    Unexpected error
+  </h1>
+  <h4>
+    Please contact your administator.
+  </h4>
+</div>
+} @else {
+
 <button (click)="openDialog()" mat-flat-button>
   <mat-icon>add</mat-icon>New student
 </button>
 
 <table mat-table [dataSource]="students$" class="mat-elevation-z8">
-
-  @if(error$ | async) {
-  <div>Unexpected error</div>
-  } @else {
 
   <!-- Id Column -->
   <ng-container matColumnDef="id">
@@ -54,8 +62,8 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-  }
 </table>
+}
 
 @if (isLoadingStudents$ | async) {
 <mat-progress-bar mode="indeterminate"></mat-progress-bar>

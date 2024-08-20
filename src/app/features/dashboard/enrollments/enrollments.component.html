@@ -1,40 +1,44 @@
 <h3>Enrollments</h3>
- 
-  <mat-dialog-content>
 
-    <form (ngSubmit)="onSubmit()" [formGroup]="enrollmentsForm">
+@if(error$ | async) {
+  <div class="error">
+    <mat-icon style="transform: scale(4); margin-bottom: 40px;">error</mat-icon>
+    <h1>
+      Unexpected error
+    </h1>
+    <h4>
+      Please contact your administator.
+    </h4>
+  </div>
+  } @else {
 
-        <mat-form-field>
-          <mat-label>Course</mat-label>
-          <!-- <input matInput type="text" placeholder="Search course" (input)="filterCourses($event)"> -->
-          <mat-select formControlName="courseId">
-            <mat-option *ngFor="let course of courses$ | async" [value]="course.id">
-              {{ course.courseName }}
-            </mat-option>
-          </mat-select>
-          <mat-error>Required field</mat-error>
-        </mat-form-field>      
+<mat-dialog-content>
+  <form (ngSubmit)="onSubmit()" [formGroup]="enrollmentsForm">
+    <mat-form-field>
+      <mat-label>Course</mat-label>
+      <mat-select formControlName="courseId">
+        <mat-option *ngFor="let course of courses$ | async" [value]="course.id">
+          {{ course.courseName }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Required field</mat-error>
+    </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Student</mat-label>
-        <!-- <input matInput type="text" placeholder="Search student" (input)="filterStudents($event)"> -->
-        <mat-select formControlName="studentId">
-          <mat-option *ngFor="let student of students$ | async" [value]="student.id">
-            {{ student.lastName }}, {{ student.firstName }}
-          </mat-option>
-        </mat-select>
-        <mat-error>Required field</mat-error>
-      </mat-form-field>
-  
-      <p>
-        <button (click)="resetForm()" mat-dialog-close mat-button>Reset</button>
-        <button type="submit" mat-button>Enroll</button>
-      </p>
-      
-      <!-- <button (click)="fer()" mat-button>Delete</button> -->
+    <mat-form-field>
+      <mat-label>Student</mat-label>
+      <mat-select formControlName="studentId">
+        <mat-option *ngFor="let student of students$ | async" [value]="student.id">
+          {{ student.lastName }}, {{ student.firstName }}
+        </mat-option>
+      </mat-select>
+      <mat-error>Required field</mat-error>
+    </mat-form-field>
 
-    </form>
-  </mat-dialog-content>
+    <p>
+      <button (click)="resetForm()" mat-dialog-close mat-button>Reset</button>
+      <button type="submit" mat-button>Enroll</button>
+    </p>
 
-  
-
+  </form>
+</mat-dialog-content>
+  }

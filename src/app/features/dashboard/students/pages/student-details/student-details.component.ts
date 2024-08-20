@@ -1,18 +1,16 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { RootState } from '../../../../../core/store';
 import { EnrollmentEmbeded } from '../../../../../shared/models/enrollment.model';
 import { Student } from '../../../../../shared/models/student.model';
+import { EnrollmentsActions } from '../../../enrollments/store/enrollments.actions';
+import { UnenrollStudentComponent } from '../../components/unenroll-student/unenroll-student.component';
 import { StudentsActions } from '../../store/students.actions';
 import { selectStudent, selectStudentCourses, selectStudentsIsLoading } from '../../store/students.selectors';
-import { EnrollmentsActions } from '../../../enrollments/store/enrollments.actions';
-import { NotifierService } from '../../../../../core/services/notifier.service';
-import { MatDialog } from '@angular/material/dialog';
-import { DeleteStudentComponent } from '../../components/delete-student/delete-student.component';
-import { UnenrollStudentComponent } from '../../components/unenroll-student/unenroll-student.component';
 
 @Component({
   selector: 'app-student-details',

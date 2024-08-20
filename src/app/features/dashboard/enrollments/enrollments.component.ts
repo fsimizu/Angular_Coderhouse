@@ -8,6 +8,7 @@ import { Course } from '../../../shared/models/course.model';
 import { Student } from '../../../shared/models/student.model';
 import { EnrollmentsActions } from './store/enrollments.actions';
 import { selectEnrollmentsCourses, selectEnrollmentsStudents } from './store/enrollments.selectors';
+import { selectStudentsError } from '../students/store/students.selectors';
 
 @Component({
   selector: 'app-enrollments',
@@ -18,7 +19,9 @@ export class EnrollmentsComponent implements OnInit {
   enrollmentsForm: FormGroup;
   isLoading = true;
   students$: Observable<Student[]>;
-  courses$: Observable<Course[]>
+  courses$: Observable<Course[]>;
+  error$: Observable<unknown>
+
 
   constructor(
     private fb: FormBuilder,
@@ -31,6 +34,7 @@ export class EnrollmentsComponent implements OnInit {
     });
     this.students$ = this.store.select(selectEnrollmentsStudents);
     this.courses$ = this.store.select(selectEnrollmentsCourses);
+    this.error$ = this.store.select(selectStudentsError)
   }
 
   ngOnInit(): void {
